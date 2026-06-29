@@ -17,7 +17,7 @@ from src.implied_volatility import calculate_implied_volatility_vectorized
 # ============================================================================
 st.set_page_config(
     page_title="Pro Quant Engine",
-    page_icon="🌌",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
