@@ -69,7 +69,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🌌 Institutional Options Desk")
+st.title(" Institutional Options Desk")
 st.markdown("""
 **Moteur de pricing Black-Scholes institutionnel** | 
 Analyse avancée des Grecs • Monte Carlo VaR • Profils de risque • Portfolio Analytics
@@ -79,7 +79,7 @@ st.markdown("---")
 # ============================================================================
 # 2. BARRE LATÉRALE : PARAMÈTRES DE MARCHÉ
 # ============================================================================
-st.sidebar.header("⚙️ Market Parameters")
+st.sidebar.header(" Market Parameters")
 
 # Section 1: Paramètres principaux
 with st.sidebar.expander(" Underlying & Strike", expanded=True):
@@ -321,7 +321,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 # TAB 1: RISK GREEKS ANALYSIS
 # ============================================================================
 with tab1:
-    st.subheader("📊 Analyse de Sensibilité des Grecs")
+    st.subheader(" Analyse de Sensibilité des Grecs")
     
     # Génération des données
     spot_range = np.linspace(max(1.0, S * 0.5), S * 1.5, 100)
@@ -431,7 +431,7 @@ with tab1:
 # TAB 2: PAYOFF & P&L ANALYSIS
 # ============================================================================
 with tab2:
-    st.subheader("💰 Diagramme de Payoff et Profil P&L")
+    st.subheader(" Diagramme de Payoff et Profil P&L")
     
     # Range de prix
     payoff_range = np.linspace(max(1.0, K * 0.5), K * 1.5, 200)
@@ -625,7 +625,7 @@ with tab4:
     sigma_hm = np.linspace(0.05, min(1.0, sigma * 3), n_points)
     
     # Calcul de la heatmap
-    with st.spinner(f"🔄 Calcul de la heatmap {greek_selected}..."):
+    with st.spinner(f" Calcul de la heatmap {greek_selected}..."):
         heatmap_data = create_greeks_heatmap(spot_hm, sigma_hm, K, T, r, option_type, greek_selected, dividend_yield)
     
     # Affichage
@@ -659,7 +659,7 @@ with tab4:
 # TAB 5: PORTFOLIO STRATEGY BUILDER
 # ============================================================================
 with tab5:
-    st.subheader("📊 Portfolio Strategy Builder")
+    st.subheader(" Portfolio Strategy Builder")
     
     st.markdown("""
     Construisez des stratégies multi-leg et analysez le profil P&L combiné.
@@ -781,7 +781,7 @@ with tab5:
 # 7. SECTION FINALE : IV SOLVER
 # ============================================================================
 st.markdown("---")
-st.subheader("🔄 Solveur de Volatilité Implicite")
+st.subheader(" Solveur de Volatilité Implicite")
 
 col_iv1, col_iv2 = st.columns([3, 1])
 
@@ -799,7 +799,7 @@ with col_iv2:
 
 if solve_iv:
     try:
-        with st.spinner("⏳ Résolution en cours..."):
+        with st.spinner(" Résolution en cours..."):
             raw_iv = calculate_implied_volatility_vectorized(market_price, S, K, T, r, option_type)
             iv = float(raw_iv[0]) if hasattr(raw_iv, "__len__") else float(raw_iv)
             
@@ -827,4 +827,4 @@ if solve_iv:
         st.error(f"❌ Erreur: {str(e)}")
 
 st.markdown("---")
-st.caption("🔬 Institutional Options Desk v2.0 | Powered by Black-Scholes & Monte Carlo | Made with ❤️ by Pro Quant")
+st.caption(" Options Desk v1.0| Powered by Black-Scholes & Monte Carlo | Made by oussama")
