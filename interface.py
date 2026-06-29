@@ -82,21 +82,21 @@ st.markdown("---")
 st.sidebar.header("⚙️ Market Parameters")
 
 # Section 1: Paramètres principaux
-with st.sidebar.expander("📊 Underlying & Strike", expanded=True):
+with st.sidebar.expander(" Underlying & Strike", expanded=True):
     S = st.number_input("Underlying Asset Price (S)", value=100.0, step=1.0, key="spot")
     K = st.number_input("Strike Price (K)", value=100.0, step=1.0, key="strike")
     moneyness_pct = ((S - K) / K * 100) if K != 0 else 0
     st.caption(f"Moneyness: {moneyness_pct:+.1f}%")
 
 # Section 2: Durée et taux
-with st.sidebar.expander("⏱️ Time & Rates", expanded=True):
+with st.sidebar.expander(" Time & Rates", expanded=True):
     T = st.number_input("Time to Maturity (Years)", min_value=0.001, max_value=5.0, value=0.5, step=0.05, key="time")
     r = st.number_input("Risk-Free Rate (r)", value=0.05, step=0.01, key="rate")
     days_to_expiry = int(T * 365)
     st.caption(f"Days to Expiry: {days_to_expiry}")
 
 # Section 3: Volatilité
-with st.sidebar.expander("📈 Volatility", expanded=True):
+with st.sidebar.expander(" Volatility", expanded=True):
     sigma = st.slider("Implied Volatility (σ)", min_value=0.01, max_value=1.50, value=0.20, step=0.01, key="vol")
     
     # Affichage du percentile de volatilité historique
@@ -251,7 +251,7 @@ price = price_option(S, K, T, r, sigma, option_type, dividend_yield)
 
 # Monte Carlo (en background)
 if st.sidebar.checkbox("Enable Monte Carlo Analysis", value=True, key="mc_toggle"):
-    with st.spinner("🎲 Simulant 10,000 trajectoires..."):
+    with st.spinner(" Simulant 10,000 trajectoires..."):
         mc_result = monte_carlo_simulation(S, K, T, r, sigma, n_simulations=10000, option_type=option_type, q=dividend_yield)
     mc_enabled = True
 else:
@@ -298,7 +298,7 @@ st.markdown("---")
 # Monte Carlo résultats
 if mc_enabled:
     mc_col1, mc_col2, mc_col3, mc_col4 = st.columns(4)
-    mc_col1.metric("🎲 MC Price", f"{mc_result['price']:.4f} €", delta=f"{mc_result['price'] - price:+.4f}")
+    mc_col1.metric(" MC Price", f"{mc_result['price']:.4f} €", delta=f"{mc_result['price'] - price:+.4f}")
     mc_col2.metric("95% VaR", f"{mc_result['var_95']:.4f} €", help="Perte maximale avec 95% confiance")
     mc_col3.metric("95% CVaR (ES)", f"{mc_result['cvar_95']:.4f} €", help="Perte moyenne au-delà du VaR")
     mc_col4.metric("Std Error", f"±{mc_result['std_error']:.6f}", help="Erreur standard de l'estimation")
@@ -310,11 +310,11 @@ st.markdown("---")
 # ============================================================================
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📈 Risk Greeks",
-    "💰 Payoff & P&L",
-    "🎲 Monte Carlo",
-    "🔥 Greeks Heatmaps",
-    "📊 Portfolio Strategy"
+    " Risk Greeks",
+    " Payoff & P&L",
+    " Monte Carlo",
+    " Greeks Heatmaps",
+    " Portfolio Strategy"
 ])
 
 # ============================================================================
@@ -475,16 +475,16 @@ with tab2:
     max_loss = f"{price:.2f}" if option_type == "call" else "Unlimited"
     
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("💥 Break-Even", f"{breakeven:.2f}", help="Prix où P&L = 0")
-    col2.metric("📈 Max Profit", max_profit, help="Profit maximal théorique")
-    col3.metric("📉 Max Loss", max_loss, help="Perte maximale théorique")
-    col4.metric("💰 Premium Paid", f"{price:.4f} €")
+    col1.metric(" Break-Even", f"{breakeven:.2f}", help="Prix où P&L = 0")
+    col2.metric(" Max Profit", max_profit, help="Profit maximal théorique")
+    col3.metric(" Max Loss", max_loss, help="Perte maximale théorique")
+    col4.metric(" Premium Paid", f"{price:.4f} €")
 
 # ============================================================================
 # TAB 3: MONTE CARLO SIMULATION
 # ============================================================================
 with tab3:
-    st.subheader("🎲 Simulation Monte Carlo - Trajectoires & VaR")
+    st.subheader(" Simulation Monte Carlo - Trajectoires & VaR")
     
     if mc_enabled:
         col_mc1, col_mc2 = st.columns(2)
@@ -545,7 +545,7 @@ with tab3:
         st.markdown("---")
         
         # Trajectoires Monte Carlo
-        st.subheader("📉 Trajectoires Brownienne")
+        st.subheader(" Trajectoires Brownienne")
         
         n_paths_display = st.slider("Nombre de trajectoires à afficher", 10, 500, 100)
         
@@ -609,7 +609,7 @@ with tab3:
 # TAB 4: GREEKS HEATMAPS
 # ============================================================================
 with tab4:
-    st.subheader("🔥 Heatmaps - Sensibilité des Grecs")
+    st.subheader(" Heatmaps - Sensibilité des Grecs")
     
     # Configuration de la heatmap
     col_hm1, col_hm2 = st.columns(2)
@@ -795,7 +795,7 @@ with col_iv1:
     )
 
 with col_iv2:
-    solve_iv = st.button("📊 Calculer l'IV", type="primary", use_container_width=True)
+    solve_iv = st.button(" Calculer l'IV", type="primary", use_container_width=True)
 
 if solve_iv:
     try:
@@ -808,7 +808,7 @@ if solve_iv:
             else:
                 col_iv_result1, col_iv_result2, col_iv_result3 = st.columns(3)
                 
-                col_iv_result1.success(f"✅ IV calculée: **{iv * 100:.2f}%**")
+                col_iv_result1.success(f" IV calculée: **{iv * 100:.2f}%**")
                 
                 spread_iv = iv - sigma
                 col_iv_result2.metric("Spread IV", f"{spread_iv * 100:+.2f}%", delta=f"{spread_iv * 100:+.2f}%")
@@ -817,9 +817,9 @@ if solve_iv:
                 if abs(spread_iv) < 0.02:
                     interpretation = "✓ Marché conforme au modèle"
                 elif spread_iv > 0.02:
-                    interpretation = "📈 Marché OVER-valued (acheter théorique)"
+                    interpretation = " Marché OVER-valued (acheter théorique)"
                 else:
-                    interpretation = "📉 Marché UNDER-valued (vendre théorique)"
+                    interpretation = " Marché UNDER-valued (vendre théorique)"
                 
                 col_iv_result3.info(interpretation)
     
